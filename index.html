@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Maanita 🎂</title>
+
+<style>
+
+body{
+ margin:0;
+ background:black;
+ color:white;
+ font-family:Arial;
+ text-align:center;
+ overflow:hidden;
+ display:flex;
+ justify-content:center;
+ align-items:center;
+ height:100vh;
+ flex-direction:column;
+}
+
+/* Fade animation */
+.fade{
+ animation:fadeIn 3s forwards;
+}
+
+@keyframes fadeIn{
+ from{opacity:0;}
+ to{opacity:1;}
+}
+
+h1{
+ font-size:34px;
+ color:#ffd700;
+}
+
+/* Cake */
+.cake{
+ font-size:70px;
+ margin:20px;
+ animation: glow 1.5s infinite alternate;
+}
+
+@keyframes glow{
+ from{text-shadow:0 0 10px orange;}
+ to{text-shadow:0 0 25px yellow;}
+}
+
+/* typing */
+#message{
+ font-size:20px;
+ width:85%;
+ max-width:320px;
+ min-height:60px;
+}
+
+/* Confetti */
+.confetti{
+ position:absolute;
+ width:10px;
+ height:10px;
+ animation:fall linear infinite;
+}
+
+@keyframes fall{
+ 0%{transform:translateY(-100vh);}
+ 100%{transform:translateY(100vh);}
+}
+
+/* Hearts */
+.heart{
+ position:absolute;
+ color:#ff4d6d;
+ font-size:20px;
+ animation:floatUp 6s linear infinite;
+}
+
+@keyframes floatUp{
+ 0%{transform:translateY(100vh);}
+ 100%{transform:translateY(-10vh);}
+}
+
+</style>
+</head>
+
+<body>
+
+<h1 class="fade">🎉 Happy Birthday Maanita 🎉</h1>
+
+<div class="cake">🎂</div>
+
+<div id="message"></div>
+
+<!-- MP4 AUDIO -->
+<audio id="music" autoplay loop>
+ <source src="birthday.mp4" type="audio/mp4">
+</audio>
+
+<script>
+
+/* AUTO MUSIC (MP4 Compatible) */
+window.onload=function(){
+
+ let music=document.getElementById("music");
+
+ music.play().catch(()=>{
+   document.body.addEventListener("click",()=>{
+     music.play();
+   });
+ });
+
+ setTimeout(startTyping,2000);
+ createConfetti();
+ createHearts();
+};
+
+/* Typing Message */
+const text="Dear Maanita 💛\nYou are truly a wonderful friend.\nMay your smile always shine 😊✨\nEnjoy your special day 🎂";
+let i=0;
+
+function startTyping(){
+ if(i<text.length){
+   document.getElementById("message").innerHTML
+   += text.charAt(i)==="\n"?"<br>":text.charAt(i);
+   i++;
+   setTimeout(startTyping,60);
+ }
+}
+
+/* Confetti */
+function createConfetti(){
+ for(let i=0;i<80;i++){
+   let conf=document.createElement("div");
+   conf.className="confetti";
+   conf.style.left=Math.random()*100+"vw";
+   conf.style.backgroundColor=
+   "hsl("+Math.random()*360+",100%,70%)";
+   conf.style.animationDuration=
+   (Math.random()*3+2)+"s";
+   document.body.appendChild(conf);
+ }
+}
+
+/* Hearts */
+function createHearts(){
+ setInterval(()=>{
+   let heart=document.createElement("div");
+   heart.className="heart";
+   heart.innerHTML="❤";
+   heart.style.left=Math.random()*100+"vw";
+   document.body.appendChild(heart);
+
+   setTimeout(()=>heart.remove(),6000);
+ },500);
+}
+
+</script>
+
+</body>
+</html>
